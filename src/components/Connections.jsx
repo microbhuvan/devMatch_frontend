@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import { BASE_URL } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   //const state = useSelector((store) => store);
@@ -35,13 +36,13 @@ const Connections = () => {
       <h1 className="text-bold text-white text-2xl">connections</h1>
 
       {connections.map((connection) => {
-        const { _id, firstName, lastName, photoURL, age, gender, about } =
+        const { _id, firstName, lastName, photoURL, age, gender, skills } =
           connection;
 
         return (
           <div
             key={_id}
-            className="flex m-4 p-4 rounded-lg bg-base-300 mx-auto"
+            className="flex m-4 p-4 rounded-lg bg-base-300 mx-auto  justify-between items-center"
           >
             <div>
               <img
@@ -55,11 +56,19 @@ const Connections = () => {
                 {firstName + " " + lastName}
               </h2>
               {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill, idx) => (
+                  <span key={idx} className="badge badge-outline badge-info">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-            {/* <Link to={"/chat/" + _id}>
-              <button className="btn btn-primary">Chat</button>
-            </Link> */}
+            <Link to={"/chat/" + _id}>
+              <button className="btn btn-secondary flex items-center">
+                message
+              </button>
+            </Link>
           </div>
         );
       })}

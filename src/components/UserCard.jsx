@@ -3,7 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, showActions = true }) => {
   const { _id, firstName, lastName, photoURL, age, gender, about } = user;
   const dispatch = useDispatch();
 
@@ -21,17 +21,19 @@ const UserCard = ({ user }) => {
   };
   return (
     <div className="flex items-center gap-4">
-      <button
-        className="btn btn-soft btn-secondary w-20 h-130"
-        onClick={() => handleSendRequest("ignored", _id)}
-      >
-        Nope
-      </button>
-      <div className="card bg-base-300 w-84 shadow-sm">
+      {showActions && (
+        <button
+          className="btn btn-soft btn-secondary w-15 h-130"
+          onClick={() => handleSendRequest("ignored", _id)}
+        >
+          Nope
+        </button>
+      )}
+      <div className="card bg-base-300 max-w-xs shadow-sm">
         <figure>
           <img src={user.photoURL} alt="Shoes" />
         </figure>
-        <div className="card-body">
+        <div className="card-body p-4">
           <h2 className="card-title">
             {user.firstName}
             <div className="badge badge-secondary">{gender}</div>
@@ -48,15 +50,16 @@ const UserCard = ({ user }) => {
           ) : (
             <p>no skills available</p>
           )}
-          <div className="flex justify-around"></div>
         </div>
       </div>
-      <button
-        className="btn btn-soft btn-primary w-20 h-130 "
-        onClick={() => handleSendRequest("interested", _id)}
-      >
-        Like
-      </button>
+      {showActions && (
+        <button
+          className="btn btn-soft btn-primary w-15 h-130 "
+          onClick={() => handleSendRequest("interested", _id)}
+        >
+          Like
+        </button>
+      )}
     </div>
   );
 };

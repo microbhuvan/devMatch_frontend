@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 import Body from "./components/Body";
 import Login from "./components/Login";
@@ -9,6 +10,8 @@ import Feed from "./components/Feed";
 import EditProfile from "./components/EditProfile";
 import Connections from "./components/Connections";
 import Request from "./components/Request";
+import Chat from "./components/Chat";
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,6 +28,8 @@ function App() {
             </Route>
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Request />} />
+            <Route path="/chat/:targetUserId" element={<Chat />} />
+            {/* <Route path="/changePassword" element={<ChangePassword />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
