@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { createSocketConnection } from "../utils/socketio";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -17,6 +18,7 @@ const Chat = () => {
     });
 
     console.log(chat.data.messages);
+
     const chatMessages = chat?.data?.messages.map((msg) => {
       const { senderId, text } = msg;
       return {
@@ -27,6 +29,10 @@ const Chat = () => {
     });
     setMessages(chatMessages);
   };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   useEffect(() => {
     if (!userId) {
@@ -62,7 +68,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-1/2 bg-base-200 p-4 rounded-2xl h-[70vh] flex flex-col">
+    <div className="w-full md:w-1/2 bg-base-200 p-4 rounded-2xl h-[85vh] flex flex-col">
       <h1 className="p-3 border-b border-pink-300 text-xl text-center">
         messages.....
       </h1>
