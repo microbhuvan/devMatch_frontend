@@ -55,7 +55,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center my-10">
+    <div className="flex justify-center md:flex-row flex-col gap-4 my-10">
+      <div className="flex flex-col text-center items-center md:items-start justify-center gap-2 -translate-y-7">
+        <h1 className="text-6xl font-bold">DevMatch</h1>
+        <h2 className="text-2xl">Helping Developers Connect Beyond the Code</h2>
+      </div>
       <div className="w-full max-w-xs mx-auto bg-base-300 rounded-2xl">
         <div className="card-body">
           <h2 className="card-title justify-center">
@@ -130,7 +134,7 @@ const Login = () => {
             </button>
           </div>
           <p
-            className="m-auto cursor-pointer py-2"
+            className="m-auto cursor-pointer py-2 font-bold"
             onClick={() => setIsLoginForm((value) => !value)}
           >
             {isLoginForm
