@@ -10,7 +10,9 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [gender, setGender] = useState(user.gender);
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  //const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(user.photoURL || null);
   const [age, setAge] = useState(user.age || 0);
   const [about, setAbout] = useState(user.about || "");
   const [skills, setSkills] = useState(user.skills?.join(", ") || "");
@@ -26,33 +28,42 @@ const EditProfile = ({ user }) => {
       setError("please select gender");
       return;
     }
+
+    // const res = await axios.patch(
+    //   BASE_URL + "/profile/edit",
+    //   {
+    //     firstName,
+    //     lastName,
+    //     gender,
+    //     age,
+    //     about,
+    //     photoURL,
+    //     skills: skills.split(",").map((skill) => skill.trim()),
+    //   },
+    //   { withCredentials: true }
+    // );
+    //console.log("axios patch working");
+
     try {
-      const res = await axios.patch(
-        BASE_URL + "/profile/edit",
-        {
-          firstName,
-          lastName,
-          gender,
-          age,
-          about,
-          photoURL,
-          skills: skills.split(",").map((skill) => skill.trim()),
-        },
-        { withCredentials: true }
-      );
-      console.log("axios patch working");
-      try {
-        // console.log("Before dispatch");
-        console.log("Res.data", res.data);
-        console.log("Res.data.data", res.data.data);
-        dispatch(addUser(res.data.data));
-        // console.log("After dispatch");
-      } catch (err) {
-        console.log("Error in dispatch:", err);
+      const data = new FormData();
+      data.append("firstName", firstName);
+      data.append("lastName", lastName);
+      data.append("gender", gender);
+      data.append("age", age);
+      data.append("about", about);
+      data.append("skills", skills); // send as comma string, backend will split
+
+      if (photo) {
+        data.append("photo", photo);
       }
-      // console.log("before set show toast");
+
+      const res = await axios.patch(BASE_URL + "/profile/edit", data, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      dispatch(addUser(res.data.data));
       setShowToast(true);
-      // console.log("after set show toast");
     } catch (err) {
       setError(err.response?.data || err.message || "unknown error");
     }
@@ -92,14 +103,22 @@ const EditProfile = ({ user }) => {
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </label>
+                </label>
+                <label className="form-control w-full max-w-xs my-2">
                   <div className="label">
-                    <span className="label-text">Photo URL</span>
+                    <span className="label-text">Upload Photo</span>
                   </div>
                   <input
-                    type="text"
-                    value={photoURL}
-                    className="input input-bordered w-full max-w-xs"
-                    onChange={(e) => setPhotoURL(e.target.value)}
+                    type="file"
+                    accept="image/*"
+                    className="file-input file-input-bordered w-full max-w-xs"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        setPhoto(file);
+                        setPreview(URL.createObjectURL(file));
+                      }
+                    }}
                   />
                 </label>
                 <label className="form-control w-full max-w-xs my-2">
@@ -171,7 +190,7 @@ const EditProfile = ({ user }) => {
           user={{
             firstName,
             lastName,
-            photoURL,
+            photoURL: preview,
             age,
             gender,
             about,
