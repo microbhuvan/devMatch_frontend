@@ -4,6 +4,8 @@ import { addUser } from "../utils/userSlice";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ForgotPassword from "./ForgotPassword";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -121,6 +123,9 @@ const Login = () => {
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
+              </div>
+              <div>
+                <Link to="/forgot-password">Forgot Password</Link>
               </div>
             </label>
           </div>

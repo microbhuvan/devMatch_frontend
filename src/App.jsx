@@ -12,6 +12,9 @@ import Connections from "./components/Connections";
 import Request from "./components/Request";
 import Chat from "./components/Chat";
 import ChangePassword from "./components/ChangePassword";
+import ForgotPassword from "./components/ForgotPassword";
+import VerifyOTP from "./components/VerifyOTP";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,6 +33,9 @@ function App() {
             <Route path="/requests" element={<Request />} />
             <Route path="/chat/:targetUserId" element={<Chat />} />
             {/* <Route path="/changePassword" element={<ChangePassword />} /> */}
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
