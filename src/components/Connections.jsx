@@ -33,45 +33,46 @@ const Connections = () => {
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-2xl">connections</h1>
+      <h1 className="text-white text-3xl font-bold">Connections</h1>
+      {connections
+        .filter((connection) => connection !== null)
+        .map((connection) => {
+          const { _id, firstName, lastName, photoURL, age, gender, skills } =
+            connection;
 
-      {connections.map((connection) => {
-        const { _id, firstName, lastName, photoURL, age, gender, skills } =
-          connection;
-
-        return (
-          <div
-            key={_id}
-            className="flex m-4 p-4 rounded-lg bg-base-300 mx-auto  justify-between items-center"
-          >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full object-cover"
-                src={photoURL}
-              />
-            </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill, idx) => (
-                  <span key={idx} className="badge badge-outline badge-info">
-                    {skill}
-                  </span>
-                ))}
+          return (
+            <div
+              key={_id}
+              className="flex m-4 p-4 rounded-lg bg-base-300 mx-auto  justify-between items-center"
+            >
+              <div>
+                <img
+                  alt="photo"
+                  className="w-20 h-20 rounded-full object-cover"
+                  src={photoURL}
+                />
               </div>
+              <div className="text-left mx-4 ">
+                <h2 className="font-bold text-xl">
+                  {firstName + " " + lastName}
+                </h2>
+                {age && gender && <p>{age + ", " + gender}</p>}
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill, idx) => (
+                    <span key={idx} className="badge badge-outline badge-info">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <Link to={"/chat/" + _id}>
+                <button className="btn btn-secondary flex items-center">
+                  message
+                </button>
+              </Link>
             </div>
-            <Link to={"/chat/" + _id}>
-              <button className="btn btn-secondary flex items-center">
-                message
-              </button>
-            </Link>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };

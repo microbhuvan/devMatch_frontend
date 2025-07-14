@@ -83,6 +83,10 @@ function ResetPassword() {
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
+        <p className="opacity-50 text-pink-500 text-center">
+          Password must have minimum length of 8, with 1 Uppercase,1 number and
+          1 special character each
+        </p>
         <button
           type="submit"
           disabled={loading}

@@ -26,7 +26,7 @@ function ForgotPassword() {
     }
   };
   return (
-    <div className="max-w-md mx-auto p-4 bg-base-300 rounded-lg shadow">
+    <div className="flex flex-col items-center justify-center max-w-md mx-auto p-4 bg-base-300 rounded-lg shadow">
       <h1 className="text-2xl font-semibold mb-4">Forgot Password</h1>
 
       <form onSubmit={handleRequestOTP}>

@@ -3,16 +3,24 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [password2, setpassword2] = useState("");
   const [showPassword1, setShowPassword1] = useState(true);
   const [showPassword2, setShowPassword2] = useState(true);
+  const [error, setError] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const submitPassword = async () => {
+  const submitPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/changepassword",
@@ -23,16 +31,23 @@ const ChangePassword = () => {
         { withCredentials: true }
       );
 
-      console.log("Res.data", res.data);
-      console.log("Res.data.data", res.data.data);
+      //console.log("Res.data", res.data);
+      //console.log("Res.data.data", res.data.data);
       dispatch(addUser(res.data.data));
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+      setTimeout(() => navigate("/"), 4000);
     } catch (err) {
-      res.status(400).send("something went wrong" + err.message);
+      setError("something went wrong" + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center bg-base-300 p-5 rounded-lg max-w-md">
+      <h1 className="text-3xl font-bold">ChangePassword</h1>
+      {error && <p className="text-red-500 mb-2 text-center">{error}</p>}
       <label className="form-control w-full max-w-xs my-2">
         <div className="label">
           <span className="label-text">New Password:</span>
@@ -53,7 +68,7 @@ const ChangePassword = () => {
           </button>
         </div>
       </label>
-      <label>
+      <label className="form-control w-full max-w-xs my-2">
         <div className="label">
           <span className="label-text">Confirm New Password:</span>
         </div>
@@ -73,13 +88,27 @@ const ChangePassword = () => {
           </button>
         </div>
       </label>
+      <p className="opacity-50 text-pink-500 text-center">
+        Password must have minimum length of 8, with 1 Uppercase,1 number and 1
+        special character each
+      </p>
       <button
         type="submit"
-        className="btn btn-primary"
+        disabled={loading}
+        className={`btn btn-primary m-2 w-full ${
+          loading ? "bg-gray-400" : "btn btn-primary"
+        }`}
         onClick={submitPassword}
       >
-        Submit
+        {loading ? "Changing" : "Submit"}
       </button>
+      {showToast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span>Changes Saved Successfully</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -64,6 +64,7 @@ const EditProfile = ({ user }) => {
 
       dispatch(addUser(res.data.data));
       setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
       setError(err.response?.data || err.message || "unknown error");
     }
@@ -71,14 +72,16 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center my-10 ">
+      <div className="flex flex-col items-center md:flex-row justify-center my-10 ">
         <p className="block md:hidden text-center text-red-400">
-          scroll down to see the preview
+          to see the preview
         </p>
         <div className="flex justify-center mx-5 my-5">
           <div className="card bg-base-300 max-w-xs shadow-xl">
             <div className="card-body">
-              <h2 className="card-title justify-center">Edit Profile</h2>
+              <h2 className="card-title justify-center text-xl font-bold">
+                Edit Profile
+              </h2>
               <div>
                 <label className="form-control w-full max-w-xs my-2">
                   <div className="label">
@@ -186,6 +189,7 @@ const EditProfile = ({ user }) => {
             </div>
           </div>
         </div>
+
         <UserCard
           user={{
             firstName,

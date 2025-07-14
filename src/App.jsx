@@ -32,7 +32,7 @@ function App() {
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Request />} />
             <Route path="/chat/:targetUserId" element={<Chat />} />
-            {/* <Route path="/changePassword" element={<ChangePassword />} /> */}
+            <Route path="/changePassword" element={<ChangePassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-otp" element={<VerifyOTP />} />
             <Route path="/reset-password" element={<ResetPassword />} />

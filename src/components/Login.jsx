@@ -125,8 +125,17 @@ const Login = () => {
                 </button>
               </div>
               <div>
-                <Link to="/forgot-password">Forgot Password</Link>
+                <Link
+                  to="/forgot-password"
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  Forgot Password ?
+                </Link>
               </div>
+              <p className="opacity-50 text-pink-500 text-center">
+                Password must have minimum length of 8, with 1 Uppercase,1
+                number and 1 special character each
+              </p>
             </label>
           </div>
           <p className="text-red-500">{error}</p>

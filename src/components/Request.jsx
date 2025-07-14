@@ -36,7 +36,7 @@ const Request = () => {
   if (requests.length === 0) return <h1>no requests found</h1>;
   return (
     <div>
-      <h1 className="text-center">Requests </h1>
+      <h1 className="text-center font-bold text-3xl">Requests </h1>
       {requests.map((request) => {
         const { _id, firstName, lastName, photoURL, age, gender, about } =
           request.fromUserId;
