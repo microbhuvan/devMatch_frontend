@@ -1,12 +1,66 @@
-# React + Vite
+# DevMatch Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 **DevMatch** is a **responsive developer matching platform** allowing developers to connect, like/nope, and chat in real-time.
 
-Currently, two official plugins are available:
+This repository contains the **React.js frontend** for DevMatch, ensuring a clean, responsive user experience across devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ Like / Nope developers  
+✅ Real-time chat using WebSockets  
+✅ OTP-based signup verification (via Resend)  
+✅ JWT-protected routes for authenticated pages  
+✅ Optimistic UI updates for instant feedback  
+✅ Infinite scroll and pagination  
+✅ Fully mobile-responsive design
+
+---
+
+## 🛠️ Tech Stack
+
+- **React.js**
+- **Tailwind CSS + DaisyUI**
+- **Axios**
+- **Socket.IO Client**
+- **React Router DOM**
+- **Vite** (build tool)
+
+---
+
+## 🚀 Live Demo
+
+🌐 [https://devmatch.co.in](https://devmatch.co.in)
+
+---
+
+## 🖥️ Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/microbhuvan/devMatch_frontend.git
+cd devMatch_frontend
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Create a .env file
+
+Add the following environment variable:
+
+```bash
+VITE_BACKEND_URL=<your-backend-url>
+```
+
+### 4️⃣ Run the app locally
+
+````bash
+npm run dev
+```
+````
