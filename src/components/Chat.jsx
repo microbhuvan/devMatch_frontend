@@ -23,7 +23,7 @@ const Chat = () => {
       const { senderId, text } = msg;
       return {
         firstName: msg?.senderId?.firstName,
-        lastName: msg?.senderId?.lastName,
+        //lastName: msg?.senderId?.lastName,
         text: text,
       };
     });
@@ -42,13 +42,14 @@ const Chat = () => {
     const socket = createSocketConnection();
     socket.emit("joinChat", {
       firstName: user.firstName,
+
       userId,
       targetUserId,
     });
 
     socket.on("messageReceived", ({ firstName, text }) => {
       console.log(firstName + " : " + text);
-      setMessages((messages) => [...messages, { firstName, lastName, text }]);
+      setMessages((messages) => [...messages, { firstName, text }]);
     });
 
     return () => {
@@ -60,7 +61,6 @@ const Chat = () => {
     const socket = createSocketConnection();
     socket.emit("sendMessage", {
       firstName: user.firstName,
-      lastName: user.lastName,
       userId,
       targetUserId,
       text: newMessage,
@@ -85,7 +85,7 @@ const Chat = () => {
               }
             >
               <div className="chat-header">
-                {`${msg.firstName}  ${msg.lastName}`}
+                {`${msg.firstName} `}
                 <time className="text-xs opacity-50"> 2 hours ago</time>
               </div>
               <div className="chat-bubble">{msg.text}</div>
